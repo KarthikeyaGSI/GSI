@@ -1,0 +1,206 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GSAP Animation Lab</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="topbar glass">
+    <div class="brand">GSAP Animation Lab</div>
+    <div class="top-controls">
+      <label class="slider-wrap">
+        <span>Speed</span>
+        <input type="range" id="globalSpeed" min="0.5" max="2" step="0.1" value="1" />
+        <span id="speedValue">1.0x</span>
+      </label>
+      <button id="playAll" class="btn btn-primary">Play All Animations</button>
+    </div>
+  </header>
+
+  <nav class="sticky-nav glass">
+    <a href="#basic">Tweens</a>
+    <a href="#timelines">Timelines</a>
+    <a href="#easing">Easing</a>
+    <a href="#stagger">Stagger</a>
+    <a href="#scroll">Scroll</a>
+    <a href="#plugins">Plugins</a>
+    <a href="#effects">Effects</a>
+    <a href="#interactions">Interactions</a>
+    <a href="#performance">Performance</a>
+    <a href="#responsive">Responsive</a>
+  </nav>
+
+  <main>
+    <section id="hero" class="panel hero">
+      <h1>Animate with precision.</h1>
+      <p>A premium playground for every major GSAP workflow.</p>
+    </section>
+
+    <section id="basic" class="panel">
+      <h2>1. Basic Tweens</h2>
+      <p>gsap.to(), gsap.from(), gsap.fromTo() with core transform properties.</p>
+      <div class="demo-row">
+        <div class="card"><div id="basicBox" class="box"></div></div>
+        <div class="controls">
+          <button class="btn" data-basic="to">gsap.to()</button>
+          <button class="btn" data-basic="from">gsap.from()</button>
+          <button class="btn" data-basic="fromTo">gsap.fromTo()</button>
+          <button class="btn" data-basic="reset">Reset</button>
+        </div>
+      </div>
+    </section>
+
+    <section id="timelines" class="panel">
+      <h2>2. Timelines</h2>
+      <p>Sequencing, delays, and overlaps with gsap.timeline().</p>
+      <div class="demo-row">
+        <div class="timeline-stage card">
+          <div class="dot d1"></div>
+          <div class="dot d2"></div>
+          <div class="dot d3"></div>
+        </div>
+        <div class="controls">
+          <button class="btn" id="playTimeline">Play Timeline</button>
+          <div class="timeline-track" id="timelineTrack"><span id="timelineProgress"></span></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="easing" class="panel">
+      <h2>3. Easing Exploration</h2>
+      <p>Switch easing curves live.</p>
+      <div class="demo-row">
+        <div class="card"><div id="easeBall" class="ball"></div></div>
+        <div class="controls">
+          <select id="easeSelect">
+            <option>power2.out</option>
+            <option>power4.inOut</option>
+            <option>bounce.out</option>
+            <option>elastic.out(1, 0.3)</option>
+            <option>expo.out</option>
+            <option>sine.inOut</option>
+          </select>
+          <button class="btn" id="runEase">Run Easing Demo</button>
+        </div>
+      </div>
+    </section>
+
+    <section id="stagger" class="panel">
+      <h2>4. Stagger Animations</h2>
+      <p>amount, each, and from center/edges/random.</p>
+      <div class="controls controls-inline">
+        <label>Amount <input type="range" id="staggerAmount" min="0.2" max="2" step="0.1" value="1"></label>
+        <label>Each <input type="range" id="staggerEach" min="0.02" max="0.4" step="0.02" value="0.08"></label>
+        <label>From
+          <select id="staggerFrom">
+            <option value="center">center</option>
+            <option value="edges">edges</option>
+            <option value="random">random</option>
+          </select>
+        </label>
+        <button class="btn" id="runStagger">Run Stagger</button>
+      </div>
+      <div id="staggerGrid" class="grid"></div>
+    </section>
+
+    <section id="scroll" class="panel scroll-panel">
+      <h2>5. Scroll Animations (ScrollTrigger)</h2>
+      <p>Fade-in, parallax, pinning, and scrubbing.</p>
+      <div class="scroll-fade card">Fade me in on scroll</div>
+      <div class="parallax-wrap"><div class="parallax-layer"></div></div>
+      <div class="pin-wrap"><div class="pin-card">Pinned Section</div></div>
+      <div class="scrub-wrap"><div class="scrub-line"><span class="scrub-dot"></span></div></div>
+    </section>
+
+    <section id="plugins" class="panel">
+      <h2>6. Advanced Plugins Demo</h2>
+      <p>ScrollTrigger, SplitText, Flip, MotionPath.</p>
+
+      <div class="plugin-grid">
+        <div class="card plugin-card">
+          <h3>SplitText Reveal</h3>
+          <p id="splitTarget">Premium motion starts with intentional typography.</p>
+          <button class="btn" id="runSplit">Reveal Text</button>
+        </div>
+
+        <div class="card plugin-card">
+          <h3>Flip Layout</h3>
+          <div id="flipContainer" class="flip-grid">
+            <div class="flip-item">A</div><div class="flip-item">B</div><div class="flip-item">C</div><div class="flip-item">D</div>
+          </div>
+          <button class="btn" id="runFlip">Shuffle Layout</button>
+        </div>
+
+        <div class="card plugin-card motion-card">
+          <h3>MotionPath</h3>
+          <svg viewBox="0 0 420 150" class="path-svg">
+            <path id="motionCurve" d="M10,120 C90,10 220,10 410,120" />
+            <circle id="pathFollower" cx="10" cy="120" r="8"></circle>
+          </svg>
+          <button class="btn" id="runPath">Run Motion Path</button>
+        </div>
+      </div>
+    </section>
+
+    <section id="effects" class="panel">
+      <h2>7. Custom Effects</h2>
+      <p>Reusable gsap.registerEffect() demos.</p>
+      <div class="demo-row">
+        <div class="card effects-stage">
+          <div class="effect-card e1">fade</div>
+          <div class="effect-card e2">slideUp</div>
+          <div class="effect-card e3">scaleIn</div>
+        </div>
+        <div class="controls">
+          <button class="btn" id="runEffects">Run Effects</button>
+        </div>
+      </div>
+    </section>
+
+    <section id="interactions" class="panel">
+      <h2>8. Interaction-Based Animations</h2>
+      <p>Hover, click triggers, and cursor-follow effects.</p>
+      <div class="interaction-row">
+        <button class="btn btn-pill interactive">Hover me</button>
+        <button class="btn btn-pill" id="clickPulse">Click pulse</button>
+        <div id="cursorArea" class="cursor-area">Move cursor here<div id="cursorDot"></div></div>
+      </div>
+    </section>
+
+    <section id="performance" class="panel">
+      <h2>9. Performance + Utilities</h2>
+      <p>quickTo, quickSetter, random/clamp/mapRange in action.</p>
+      <div class="perf-stage card" id="perfStage">
+        <div id="perfBall" class="ball"></div>
+      </div>
+      <button class="btn" id="runUtils">Generate Utility Values</button>
+      <div id="utilsReadout" class="readout"></div>
+    </section>
+
+    <section id="responsive" class="panel">
+      <h2>10. Responsive Animations</h2>
+      <p>gsap.matchMedia() switching between desktop and mobile behavior.</p>
+      <div class="card"><div id="responsiveBox" class="box responsive-box"></div></div>
+      <div class="readout" id="responsiveReadout"></div>
+    </section>
+  </main>
+
+  <aside class="debug glass">
+    <h3>Debug Panel</h3>
+    <div>Active tweens: <strong id="activeTweens">0</strong></div>
+    <div>Global timeScale: <strong id="debugScale">1.0</strong></div>
+  </aside>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/Flip.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/MotionPathPlugin.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/SplitText.min.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>

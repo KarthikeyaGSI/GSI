@@ -1,14 +1,27 @@
 "use client"
 
 import { motion, useScroll, useTransform } from "framer-motion"
-import { useRef } from "react"
+import { useRef, useState, useEffect } from "react"
 import { ArrowRight, BookOpen, ExternalLink } from "lucide-react"
 
+function NavIndicator({ i, progress }: { i: number; progress: any }) {
+  const scaleY = useTransform(progress, [i * 0.2, (i + 1) * 0.2], [0, 1])
+  
+  return (
+    <div className="w-1 h-12 bg-zinc-900/50 rounded-full overflow-hidden border border-white/5">
+      <motion.div 
+        className="w-full bg-purple-500 origin-top"
+        style={{ scaleY }}
+      />
+    </div>
+  )
+}
+
 export default function Overlay() {
+  const [mounted, setMounted] = useState(false)
   const containerRef = useRef<HTMLDivElement>(null)
   const { scrollYProgress } = useScroll()
 
-  // Map scroll progress to section visibility
   const heroOpacity = useTransform(scrollYProgress, [0, 0.15], [1, 0])
   const heroScale = useTransform(scrollYProgress, [0, 0.15], [1, 0.8])
   
@@ -16,6 +29,12 @@ export default function Overlay() {
   const workOpacity = useTransform(scrollYProgress, [0.4, 0.5, 0.65], [0, 1, 0])
   const expOpacity = useTransform(scrollYProgress, [0.65, 0.75, 0.85], [0, 1, 0])
   const contactOpacity = useTransform(scrollYProgress, [0.85, 0.95], [0, 1])
+
+  useEffect(() => {
+    setMounted(true)
+  }, [])
+
+  if (!mounted) return null
 
   const scrollToSection = (progress: number) => {
     const target = document.documentElement.scrollHeight * progress
@@ -145,12 +164,7 @@ export default function Overlay() {
       {/* Navigation Indicators */}
       <div className="fixed right-8 top-1/2 -translate-y-1/2 flex flex-col gap-4 pointer-events-auto">
         {[0, 1, 2, 3, 4].map((i) => (
-           <div key={i} className="w-1 h-12 bg-white/10 rounded-full overflow-hidden">
-              <motion.div 
-                className="w-full bg-purple-500 origin-top"
-                style={{ scaleY: useTransform(scrollYProgress, [i * 0.2, (i + 1) * 0.2], [0, 1]) }}
-              />
-           </div>
+           <NavIndicator key={i} i={i} progress={scrollYProgress} />
         ))}
       </div>
     </div>

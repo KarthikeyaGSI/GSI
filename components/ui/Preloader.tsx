@@ -8,25 +8,20 @@ import * as THREE from "three"
 import { GravitySphereShader } from "../3d/Objects"
 
 function LoadingLogo() {
-  const materialRef = useRef<any>(null!)
-  
-  useFrame((state) => {
-    if (materialRef.current) {
-      materialRef.current.uniforms.uTime.value = state.clock.getElapsedTime()
-    }
-  })
-
   return (
-    <Canvas camera={{ position: [0, 0, 5] }}>
-      <ambientLight intensity={0.5} />
-      <pointLight position={[10, 10, 10]} />
-      <Float speed={4} rotationIntensity={1} floatIntensity={1}>
-        <mesh>
-          <sphereGeometry args={[1, 64, 64]} />
-          <shaderMaterial ref={materialRef} args={[GravitySphereShader]} transparent />
-        </mesh>
-      </Float>
-    </Canvas>
+    <div className="relative w-32 h-32 flex items-center justify-center">
+      <motion.div 
+        className="absolute inset-0 border-2 border-purple-500/30 rounded-full"
+        animate={{ scale: [1, 1.2, 1], opacity: [0.3, 0.6, 0.3] }}
+        transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+      />
+      <motion.div 
+        className="w-16 h-16 border-t-2 border-purple-500 rounded-full"
+        animate={{ rotate: 360 }}
+        transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+      />
+      <div className="absolute inset-0 bg-purple-500/20 blur-2xl rounded-full animate-pulse" />
+    </div>
   )
 }
 

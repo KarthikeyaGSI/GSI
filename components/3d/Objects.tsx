@@ -111,7 +111,7 @@ export function ProjectCard({ position, title, index }: { position: [number, num
             color="white"
             anchorX="center"
             anchorY="middle"
-            font="https://fonts.gstatic.com/s/inter/v12/UcCO3FwrK3iLTeHuS_fvQtMwCp50KnMw2boKoduKmMEVuLyfMZhrib2Bg-4.woff"
+            font="https://fonts.gstatic.com/s/robotomono/v22/L0tkDFI86-99_qJqnS_W9V0.woff"
           >
             {title}
           </Text>

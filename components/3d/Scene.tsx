@@ -1,10 +1,10 @@
 "use client"
 
+import React, { useRef, useState, useEffect } from "react"
 import { Canvas, useFrame } from "@react-three/fiber"
 import { ScrollControls, useScroll, Environment, Float, MeshDistortMaterial } from "@react-three/drei"
 import { EffectComposer, Bloom, Noise, Vignette } from "@react-three/postprocessing"
 import { GravitySphere, ProjectCard, ExperienceLines } from "./Objects"
-import { useRef } from "react"
 import * as THREE from "three"
 
 function SceneContent() {
@@ -84,12 +84,22 @@ function SceneContent() {
 }
 
 export default function Scene() {
+  const [mounted, setMounted] = useState(false)
+
+  useEffect(() => {
+    setMounted(true)
+  }, [])
+
+  if (!mounted) return <div className="fixed inset-0 bg-black" />
+
   return (
     <div className="fixed inset-0 z-0">
       <Canvas shadows camera={{ position: [0, 0, 10], fov: 35 }}>
-        <ScrollControls pages={5} damping={0.3}>
-          <SceneContent />
-        </ScrollControls>
+        <React.Suspense fallback={null}>
+          <ScrollControls pages={5} damping={0.3}>
+            <SceneContent />
+          </ScrollControls>
+        </React.Suspense>
       </Canvas>
     </div>
   )

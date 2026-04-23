@@ -15,8 +15,9 @@ function SceneContent() {
     const offset = scroll.offset
     const isMobile = state.viewport.width < 5
     
-    const targetZ = THREE.MathUtils.lerp(isMobile ? 25 : 20, -5, offset)
-    const targetY = THREE.MathUtils.lerp(0, -2, offset)
+    // Expanded Journey: 8 sections
+    const targetZ = THREE.MathUtils.lerp(isMobile ? 25 : 20, -120, offset)
+    const targetY = THREE.MathUtils.lerp(0, -6, offset)
     
     state.camera.position.z = THREE.MathUtils.lerp(state.camera.position.z, targetZ, 0.05)
     state.camera.position.y = THREE.MathUtils.lerp(state.camera.position.y, targetY, 0.05)
@@ -40,7 +41,14 @@ function SceneContent() {
           <GravitySphere scrollOffset={scroll.offset} />
         </group>
 
+        {/* Scattered Background elements for depth */}
         <group position={[0, 0, -20]}>
+          <ExperienceLines />
+        </group>
+        <group position={[0, -10, -50]}>
+          <ExperienceLines />
+        </group>
+        <group position={[0, 5, -80]}>
           <ExperienceLines />
         </group>
 
@@ -79,7 +87,7 @@ export default function Scene() {
         }}
       >
         <React.Suspense fallback={null}>
-          <ScrollControls pages={5} damping={0.3}>
+          <ScrollControls pages={8} damping={0.3}>
             <SceneContent />
           </ScrollControls>
         </React.Suspense>

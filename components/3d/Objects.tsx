@@ -62,19 +62,27 @@ export function GravitySphere({ scrollOffset }: { scrollOffset: number }) {
       materialRef.current.uniforms.uMouse.value.lerp(mouse, 0.1)
     }
     
-    const pulse = Math.sin(time * 2) * 0.02 + 1
+    const pulse = Math.sin(time * 2) * 0.05 + 1
     mesh.current.scale.setScalar((isMobile ? 0.7 : 1) * pulse)
-    mesh.current.rotation.y = time * 0.1
+    mesh.current.rotation.y = time * 0.3
+    mesh.current.rotation.x = time * 0.1
+    
+    // Mouse interaction: move sphere slightly
+    mesh.current.position.x = THREE.MathUtils.lerp(mesh.current.position.x, mouse.x * 0.5, 0.1)
+    mesh.current.position.y = THREE.MathUtils.lerp(mesh.current.position.y, mouse.y * 0.5, 0.1)
   })
 
   return (
     <group>
-      <Float speed={2} rotationIntensity={0.2} floatIntensity={0.5}>
+      <Float speed={2} rotationIntensity={0.5} floatIntensity={1}>
         <mesh ref={mesh}>
-          <sphereGeometry args={[1, 128, 128]} />
+          <sphereGeometry args={[1, 64, 64]} />
           <shaderMaterial ref={materialRef} args={[GravitySphereShader]} transparent />
         </mesh>
       </Float>
+      
+      {/* Internal core light */}
+      <pointLight intensity={10} distance={5} color="#7c3aed" />
 
       {[0, 1, 2].map((i) => (
         <group key={i} position={[

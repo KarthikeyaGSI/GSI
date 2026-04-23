@@ -34,12 +34,12 @@ export default function Preloader() {
       setProgress((prev) => {
         if (prev >= 100) {
           clearInterval(timer)
-          setTimeout(() => setLoading(false), 500)
+          setTimeout(() => setLoading(false), 300)
           return 100
         }
-        return prev + 1
+        return prev + 2 // Faster loading
       })
-    }, 30)
+    }, 20)
 
     return () => clearInterval(timer)
   }, [])

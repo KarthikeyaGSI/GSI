@@ -51,7 +51,7 @@ export default function Overlay() {
           style={{ opacity: heroOpacity }}
           className="flex flex-col items-center text-center max-w-5xl"
         >
-          <span className="text-purple-500 font-mono tracking-[0.3em] mb-4 uppercase text-sm">MarketingKo Labs</span>
+          <span className="text-purple-500 font-mono tracking-[0.3em] mb-4 uppercase text-sm">Marketing Ko Labs</span>
           <h1 className="text-5xl md:text-8xl font-black tracking-tighter leading-tight mb-8">
             WE BUILD WEBSITES <br /> 
             PEOPLE DON'T <span className="gradient-text italic">SCROLL.</span>

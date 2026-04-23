@@ -3,7 +3,7 @@
 import { Canvas, useFrame } from "@react-three/fiber"
 import { ScrollControls, useScroll, Environment, Float, MeshDistortMaterial } from "@react-three/drei"
 import { EffectComposer, Bloom, Noise, Vignette } from "@react-three/postprocessing"
-import { AbstractSculpture, ProjectCard, ExperienceLines } from "./Objects"
+import { GravitySphere, ProjectCard, ExperienceLines } from "./Objects"
 import { useRef } from "react"
 import * as THREE from "three"
 
@@ -74,7 +74,7 @@ function SceneContent() {
 
       <Environment preset="city" />
       
-      <EffectComposer disableNormalPass>
+      <EffectComposer>
         <Bloom luminanceThreshold={1} mipmapBlur intensity={1.5} />
         <Noise opacity={0.05} />
         <Vignette eskil={false} offset={0.1} darkness={1.1} />

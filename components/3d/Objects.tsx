@@ -152,9 +152,7 @@ export function ExperienceLines() {
         <bufferGeometry attach="geometry">
           <bufferAttribute
             attach="attributes-position"
-            count={linePoints.length}
-            array={new Float32Array(linePoints.flatMap(p => [p.x, p.y, p.z]))}
-            itemSize={3}
+            args={[new Float32Array(linePoints.flatMap(p => [p.x, p.y, p.z])), 3]}
           />
         </bufferGeometry>
         <lineBasicMaterial attach="material" color="#3b82f6" transparent opacity={0.2} />
